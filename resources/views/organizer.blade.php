@@ -113,8 +113,8 @@
                                         <td>{{ $reservation->statut }}</td>
                                         <td>
                                             @if($reservation->statut == 'en_attente')
-                                                <button class="confirm-reservation-btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" data-reservation-id="{{ $reservation->id }}">Confirm</button>
-                                                <button class="cancel-reservation-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-reservation-id="{{ $reservation->id }}">Cancel</button>
+                                            <a href="{{ route('reservations.confirm', $reservation->id) }}" class="confirm-reservation-btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" data-reservation-id="{{ $reservation->id }}">Confirm</a>
+                                            <a href="{{ route('reservations.cancel', $reservation->id) }}" class="cancel-reservation-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-reservation-id="{{ $reservation->id }}">Cancel</a>
                                             @else
                                                 <span>Already {{ $reservation->statut }}</span>
                                             @endif
@@ -159,56 +159,56 @@
 
 //....................
 
-document.addEventListener("DOMContentLoaded", function() {
-    const confirmReservationButtons = document.querySelectorAll(".confirm-reservation-btn");
-    const cancelReservationButtons = document.querySelectorAll(".cancel-reservation-btn");
-    console.log(confirmReservationButtons);
-    console.log(cancelReservationButtons);
-    confirmReservationButtons.forEach(function(button) {
-        button.addEventListener("click", function() {
-            const reservationId = this.getAttribute("data-reservation-id");
-            updateReservationStatus(reservationId, 'confirm');
-        });
-    });
+// document.addEventListener("DOMContentLoaded", function() {
+//     const confirmReservationButtons = document.querySelectorAll(".confirm-reservation-btn");
+//     const cancelReservationButtons = document.querySelectorAll(".cancel-reservation-btn");
+//     console.log(confirmReservationButtons);
+//     console.log(cancelReservationButtons);
+//     confirmReservationButtons.forEach(function(button) {
+//         button.addEventListener("click", function() {
+//             const reservationId = this.getAttribute("data-reservation-id");
+//             updateReservationStatus(reservationId, 'confirm');
+//         });
+//     });
 
-    cancelReservationButtons.forEach(function(button) {
-        button.addEventListener("click", function() {
-            const reservationId = this.getAttribute("data-reservation-id");
-            updateReservationStatus(reservationId, 'cancel');
-        });
-    });
+//     cancelReservationButtons.forEach(function(button) {
+//         button.addEventListener("click", function() {
+//             const reservationId = this.getAttribute("data-reservation-id");
+//             updateReservationStatus(reservationId, 'cancel');
+//         });
+//     });
 
     
     
-    function updateReservationStatus(reservationId, action) {
-        // Send an AJAX request to update the reservation status
-        // You can use Fetch API or Axios for AJAX requests
-        // Example using Fetch API
-        fetch(`/update-reservation-status/${reservationId}?action=${action}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                reservationId: reservationId,
-                action: action
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                // Update the status in the UI if the request is successful
-                const statusElement = document.querySelector(`[data-reservation-id="${reservationId}"] .reservation-status`);
-                statusElement.innerText = action === 'confirm' ? 'Confirmed' : 'Canceled';
-            } else {
-                console.error('Failed to update reservation status');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-});
+//     function updateReservationStatus(reservationId, action) {
+//         // Send an AJAX request to update the reservation status
+//         // You can use Fetch API or Axios for AJAX requests
+//         // Example using Fetch API
+//         fetch(`/update-reservation-status/${reservationId}?action=${action}`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+//             },
+//             body: JSON.stringify({
+//                 reservationId: reservationId,
+//                 action: action
+//             })
+//         })
+//         .then(response => {
+//             if (response.ok) {
+//                 // Update the status in the UI if the request is successful
+//                 const statusElement = document.querySelector(`[data-reservation-id="${reservationId}"] .reservation-status`);
+//                 statusElement.innerText = action === 'confirm' ? 'Confirmed' : 'Canceled';
+//             } else {
+//                 console.error('Failed to update reservation status');
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//         });
+//     }
+// });
 
 </script>
 

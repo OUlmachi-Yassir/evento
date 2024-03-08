@@ -70,7 +70,6 @@
 </div>
     
 
-    
     <div class="container flex mt-11 flex-wrap justify-center gap-8 items-center">
         <!-- Display Category List -->
         <div class="my-8">

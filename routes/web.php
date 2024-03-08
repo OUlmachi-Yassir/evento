@@ -67,5 +67,6 @@ use App\Http\Controllers\StatisticsController;
 
 Route::get('/admin/statistics', [StatisticsController::class, 'index'])->name('admin.dashboard');
 
-
+Route::get('/reservations/{id}/confirm', [EventController::class, 'confirmReservation'])->name('reservations.confirm');
+Route::get('/reservations/{id}/cancel', [EventController::class, 'cancelReservation'])->name('reservations.cancel');
 require __DIR__.'/auth.php';

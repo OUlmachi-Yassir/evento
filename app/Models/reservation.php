@@ -16,7 +16,7 @@ class Reservation extends Model
         'user_id',
         'nombre_places',
         'date_reservation',
-        'status',
+        'statut',
     ];
 
     // Define the relationship with the Event model

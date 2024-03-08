@@ -80,6 +80,19 @@ class EventController extends Controller
             return response()->json(['success' => false, 'message' => 'Désolé, il n\'y a pas assez de places disponibles pour cette réservation.']);
         }
     }
+    public function confirmReservation($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->update(['statut' => 'confirmé']);
+        return redirect()->back();
+    }
+    
+    public function cancelReservation($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->update(['statut' => 'annulé']); 
+        return redirect()->back(); 
+    }   
 
 }
 
