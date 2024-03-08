@@ -7,7 +7,7 @@
 
     <div class="container">
         <!-- Display Create Event Form -->
-        <div class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+    <div class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
     <h2 class="text-xl font-semibold mb-4">Create Event</h2>
     <form method="POST" action="{{ route('events.store') }}" class="space-y-4">
         @csrf
@@ -26,7 +26,7 @@
     </form>
 </div>
 
-
+<br><br>
         <!-- Display Events List -->
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
             @foreach($events as $event)
@@ -40,8 +40,8 @@
                     <p class="text-gray-700 text-base">Catégorie: {{ $event->categorie->name }}</p>
                     <!-- Ajoutez ici d'autres informations de l'événement -->
                 </div>
-                <div class="px-6 py-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded edit-btn" data-event-id="{{ $event->id }}">
+                <div class="flex justify-center gap-3">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold  px-4 rounded edit-btn" data-event-id="{{ $event->id }}">
                         Editer
                     </button>
                     <form method="POST" action="{{ route('events.destroy', $event->id) }}" class="delete-form">
@@ -51,6 +51,11 @@
                             Supprimer
                         </button>
                     </form>
+                    
+                <button  data-event-id="{{ $event->id }}" class=" show-reservations-btn bg-gray-950 text-gray-400 border border-gray-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                <span class="bg-gray-400 shadow-gray-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+                Show Reservations
+                </button>
                 </div>
                 <div class="px-6 py-4 edit-form hidden" data-event-id="{{ $event->id }}">
                     <!-- Edit Form - Initially Hidden -->
@@ -87,7 +92,6 @@
     @foreach($events as $event)
         <div class="max-w-sm rounded overflow-hidden shadow-lg">
             <div class="px-6 py-4">
-                <div class="font-bold text-xl mb-2">{{ $event->titre }}</div>
                 <!-- Other event details -->
 
                 <div id="event-reservations-{{ $event->id }}" class="reservations-popup hidden" data-event-id="{{ $event->id }}">
@@ -126,9 +130,7 @@
                         <p>No reservations for this event.</p>
                     @endif
                 </div>
-                <button  class="show-reservations-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-event-id="{{ $event->id }}">
-                    Show Reservations
-                </button>
+                
             </div>
         </div>
     @endforeach
