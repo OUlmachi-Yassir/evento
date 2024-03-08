@@ -7,26 +7,25 @@
 
     <div class="container">
         <!-- Display Create Event Form -->
-        <div>
-            <h2>Create Event</h2>
-            <form method="POST" action="{{ route('events.store') }}">
-                @csrf
-                <input type="text" name="titre" placeholder="Event Title">
-                <textarea name="description" placeholder="Event Description"></textarea>
-                <input type="datetime-local" name="date" placeholder="Event Date and Time">
-                <input type="text" name="lieu" placeholder="Event Location">
-                <input type="number" name="places_disponibles" placeholder="Available Places">
-                
-                <!-- Select Category -->
-                <select name="id_categorie">
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
+        <div class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold mb-4">Create Event</h2>
+    <form method="POST" action="{{ route('events.store') }}" class="space-y-4">
+        @csrf
+        <input type="text" name="titre" placeholder="Event Title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400">
+        <textarea name="description" placeholder="Event Description" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"></textarea>
+        <input type="datetime-local" name="date" placeholder="Event Date and Time" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400">
+        <input type="text" name="lieu" placeholder="Event Location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400">
+        <input type="number" name="places_disponibles" placeholder="Available Places" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400">
+        <!-- Select Category -->
+        <select name="id_categorie" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400">
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
+        <button type="submit" class="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Create</button>
+    </form>
+</div>
 
-                <button type="submit">Create</button> 
-            </form>
-        </div>
 
         <!-- Display Events List -->
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
