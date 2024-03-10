@@ -13,21 +13,50 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div>
+    <img src="{{ asset('images/Show_Reservations-removebg-preview (2).png') }}" class="h-[200px] m-auto" alt="OLM">
+    </div>
+    <div class="container grid grid-cols-1 place-items-center  md:grid-cols-3">
     @foreach($events as $event)
-    <div class="max-w-sm rounded overflow-hidden shadow-lg">
-        <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-2">{{ $event->titre }}</div>
-            <p class="text-gray-700 text-base">{{ $event->description }}</p>
-            <p class="text-gray-700 text-base">Date: {{ $event->date }}</p>
-            <p class="text-gray-700 text-base">Lieu: {{ $event->lieu }}</p>
-            <p class="text-gray-700 text-base">Places disponibles: <span id="places-disponibles-{{ $event->id }}">{{ $event->places_disponibles }}</span></p>
+    <div class="max-w-sm h-FULL w-[30em] rounded overflow-hidden shadow-lg bg-white">
+        <div class="px-4 py-4">
+            <div class="flex justify-between gap-6 items-center">
+                <h1 class="font-bold font-Poppin text-[1.4em] ">{{ $event->titre }}</h1>
+                <p class="text-gray-700 text-base"> {{ $event->date }}</p>
+        </div>
+            <p class="text-gray-700 text-base indent-8">{{ $event->description }}</p>
+        <div class="flex items-center ">
+            <svg width="20px" height="20px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+            <p class="text-gray-700 text-base">
+            Lieu:
+            <span class="font-bold text-l">{{ $event->lieu }}</span></p>
+        </div>
+        <div class="flex items-center ">
+            <svg width="20px" height="20px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
             <p class="text-gray-700 text-base">Catégorie: {{ $event->categorie->name }}</p>
-            <button class="reserve-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-event-id="{{ $event->id }}">Réserver</button>
+
+        </div>
+        <div class="flex items-center ">
+            <svg width="20px" height="20px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+            <p class="text-gray-700 text-base">Places disponibles: <span id="places-disponibles-{{ $event->id }}">{{ $event->places_disponibles }}</span></p>
+
+        </div>
+
+            
+            <button class="reserve-btn font-bold relative hover:text-black rounded-[15px] py-2 px-6 after:absolute after:h-1 after:hover:h-[200%] transition-all duration-500 hover:transition-all hover:duration-500 after:transition-all after:duration-500 after:hover:transition-all after:hover:duration-500 overflow-hidden z-20 after:z-[-20] after:bg-[#abd373] after:rounded-t-full after:w-full after:bottom-0 after:left-0 text-black" data-event-id="{{ $event->id }}">Réserver</button>            
             <form method = "POST" action = "{{ route('reserve.place', $event->id) }}" data-event-id="{{ $event->id }}" class="reserve-form hidden">
                 @csrf
                 <input type="number" name="places" id="places-{{ $event->id }}" placeholder="Nombre de places">
-                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Confirmer</button>
+                <button type="submit" class="bg-[#abd373] hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Confirmer</button>
             </form>
             <div data-event-id="{{ $event->id }}" class="reservation-message hidden bg-yellow-200 border border-yellow-400 text-yellow-800 px-4 py-3 rounded-md mt-2 text-sm">
                 <!-- Message de réservation -->
