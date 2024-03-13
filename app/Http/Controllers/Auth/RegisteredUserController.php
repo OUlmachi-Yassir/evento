@@ -49,9 +49,12 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         if ($user->role === 'organizer') {
-            return redirect()->route('organizer.index'); 
+            return redirect()->route('organizer.dashboard'); 
+        }else if($user->role === 'admin'){
+        return redirect()->route('admin.dashboard');
+        }else
+        {
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
-
-        return redirect(RouteServiceProvider::HOME);
     }
 }

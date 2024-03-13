@@ -7,22 +7,38 @@ use App\Models\Event;
 use App\Models\Reservation;
 use App\Notifications\ReservationMadeNotification;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session as FacadesSession;
 
 class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::with('reservations')->get();
+        $idUser = Auth::id();
+        $events = Event::with('reservations')->where('id_user', $idUser)->get();
         $categories = Category::all();
         return view('organizer', compact('events', 'categories'));
     }
-    public function AnotherPage()
-    {
-        $events = Event::all();
-        $categories = Category::all();
-        return view('dashboard', compact('events', 'categories'));
+   
+    public function AnotherPage(Request $request)
+{
+    $categories = Category::all();
+    $eventsQuery = Event::query();
+
+    if ($request->has('id_categorie')) {
+        $eventsQuery->where('id_categorie', $request->input('id_categorie'));
     }
+
+    if ($request->has('search')) {
+        $searchTerm = $request->input('search');
+        $eventsQuery->where('titre', 'like', "%$searchTerm%");
+    }
+    
+    // Paginate the results
+    $events = $eventsQuery->paginate(5); // Change 10 to the desired number of items per page
+
+    return view('dashboard', compact('events', 'categories'));
+}
 
 
     public function store(Request $request)
@@ -92,7 +108,16 @@ class EventController extends Controller
         $reservation = Reservation::findOrFail($id);
         $reservation->update(['statut' => 'annulé']); 
         return redirect()->back(); 
-    }   
+    } 
+    
+    
+    public function myReservations()
+{
+    $userReservations = Reservation::where('id_utilisateur', auth()->id())
+                               ->with('event')
+                               ->get();   
+    return view('my-reservations', compact('userReservations'));
+}
 
 }
 

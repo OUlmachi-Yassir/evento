@@ -22,7 +22,7 @@ class Reservation extends Model
     // Define the relationship with the Event model
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class, 'id_evenement');
     }
 
     // Define the relationship with the User model
@@ -31,4 +31,5 @@ class Reservation extends Model
     {
         return $this->belongsTo(User::class, 'id_utilisateur', 'id');
     }
+    
 }

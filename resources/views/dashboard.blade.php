@@ -16,15 +16,44 @@
     <div>
     <img src="{{ asset('images/Show_Reservations-removebg-preview (2).png') }}" class="h-[200px] m-auto" alt="OLM">
     </div>
-    <div class="container grid grid-cols-1 place-items-center  md:grid-cols-3">
+
+
+<div class="flex flex-wrap justify-center gap-10">
+    <div class="flex items-center  mt-4">
+        <form method="GET" action="{{ route('dashboard') }}">
+            <label for="id_categorie" class="mr-2">Filter by Category:</label>
+            <select name="id_categorie" id="id_categorie" class="border border-gray-300 rounded-md px-2 py-1 mr-2">
+                <option value="">All Categories</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filter</button>
+        </form>
+    </div>
+    <div class="flex items-center mt-4">
+        <form method="GET" action="{{ route('dashboard') }}" class="flex items-center bg-white border rounded-md shadow-sm">
+            <input type="text" name="search" id="search" value="{{ request()->input('search') }}" class="py-2 px-4 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Search by Event Title">
+            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-r-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Search
+            </button>
+        </form>
+    </div>
+</div>
+<br>
+
+
+
+<div class="container grid grid-cols-1 place-items-center  md:grid-cols-3">
     @foreach($events as $event)
+    @if($event->status === 'aproved')
     <div class="max-w-sm h-FULL w-[30em] rounded overflow-hidden shadow-lg bg-white">
         <div class="px-4 py-4">
             <div class="flex justify-between gap-6 items-center">
                 <h1 class="font-bold font-Poppin text-[1.4em] ">{{ $event->titre }}</h1>
                 <p class="text-gray-700 text-base"> {{ $event->date }}</p>
         </div>
-            <p class="text-gray-700 text-base indent-8">{{ $event->description }}</p>
+            <p class="text-gray-700 text-base indent-8">{{ Str::limit($event->description, 20) }}</p>
         <div class="flex items-center ">
             <svg width="20px" height="20px" viewBox="0 0 13 10">
                 <path d="M1,5 L11,5"></path>
@@ -63,9 +92,15 @@
             </div> 
         </div>
     </div>
+    @endif
     @endforeach
 </div>
 @endif
+
+<br><br>
+<div class="mt-4">
+    {{ $events->links() }}
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {

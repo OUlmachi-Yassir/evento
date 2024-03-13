@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class event extends Model
 {
+
     use HasFactory;
     protected $fillable = [
         'titre',
@@ -15,6 +16,8 @@ class event extends Model
         'lieu',
         'places_disponibles',
         'id_categorie',
+        'id_user',
+        'status',
     ];
 
     public function categorie() {

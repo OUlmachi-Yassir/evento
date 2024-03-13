@@ -150,6 +150,25 @@
 </div>
 
 
+<div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+            @foreach($events as $event)
+            
+            <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">{{ $event->titre }}</div>
+                    
+                    <p class="text-gray-700 text-base">Date: {{ $event->date }}</p>
+                    
+                    <p class="text-gray-700 text-base">Places disponibles: {{ $event->places_disponibles }}</p>
+                    <p class="text-gray-700 text-base">Catégorie: {{ $event->categorie->name }}</p>
+                    <!-- Ajoutez ici d'autres informations de l'événement -->
+                </div>
+                <a class="text-red-600 hover:text-red-800" href="{{route('event.changeStatus', $event->id)}}">aprove</a>
+            </div>
+            @endforeach
+        </div>
+
+
 
     
 

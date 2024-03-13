@@ -16,6 +16,7 @@
         <input type="datetime-local" name="date" placeholder="Event Date and Time" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400">
         <input type="text" name="lieu" placeholder="Event Location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400">
         <input type="number" name="places_disponibles" placeholder="Available Places" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400">
+        <input type="text" class = "hidden" name = "id_user" value = "{{ Auth::user()->id }}">
         <!-- Select Category -->
         <select name="id_categorie" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400">
             @foreach($categories as $category)
@@ -33,9 +34,9 @@
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-2">{{ $event->titre }}</div>
-                    <p class="text-gray-700 text-base">{{ $event->description }}</p>
+                    
                     <p class="text-gray-700 text-base">Date: {{ $event->date }}</p>
-                    <p class="text-gray-700 text-base">Lieu: {{ $event->lieu }}</p>
+                    
                     <p class="text-gray-700 text-base">Places disponibles: {{ $event->places_disponibles }}</p>
                     <p class="text-gray-700 text-base">Catégorie: {{ $event->categorie->name }}</p>
                     <!-- Ajoutez ici d'autres informations de l'événement -->
@@ -67,6 +68,7 @@
                         <input type="datetime-local" name="date" value="{{ date('Y-m-d\TH:i', strtotime($event->date)) }}" class="bg-gray-200 rounded-lg px-4 py-2 mb-2 w-full">
                         <input type="text" name="lieu" value="{{ $event->lieu }}" placeholder="Event Location" class="bg-gray-200 rounded-lg px-4 py-2 mb-2 w-full">
                         <input type="number" name="places_disponibles" value="{{ $event->places_disponibles }}" placeholder="Available Places" class="bg-gray-200 rounded-lg px-4 py-2 mb-2 w-full">
+                        <input type="text" class = "hidden" name = "id_user" value = "{{ Auth::user()->id }}">
                         <!-- Add other fields as needed -->
                         <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                             Enregistrer
@@ -76,7 +78,7 @@
             </div>
             @endforeach
         </div>
-    </div>
+    
 
     
 

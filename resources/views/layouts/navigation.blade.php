@@ -12,15 +12,25 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                @if(Auth::user()->role === 'visitor')
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if(Auth::check())
+                    <x-nav-link :href="route('my.reservations')" :active="request()->routeIs('my.reservations')">
+                        {{ __('My Tickets') }}
+                    </x-nav-link>
+                    @endif
+                    @elseif(Auth::user()->role === 'admin')
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Admin Nots') }}
                     </x-nav-link>
+                    @elseif(Auth::user()->role === 'organizer')
                     <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
                         {{ __('Organizer Storys') }}
                     </x-nav-link>
+                    @endif
+                   
                 </div>
             </div>
 

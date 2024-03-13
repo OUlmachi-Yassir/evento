@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\event;
 
 class CategoryController extends Controller
 {
     public function index()
     {
         $categories = Category::all();
+        $events = event::all();
         $users = User::all();
-        return view('admin',compact('categories','users'));
+        return view('admin',compact('categories','users','events'));
     }
 
     public function create()
